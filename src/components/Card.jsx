@@ -15,7 +15,7 @@ const Card = ({ products }) => {
     }, 3000); // Message will disappear after 3 seconds
   };
 
-  // Function to truncate title
+ 
   const truncateTitle = (text, length) => {
     return text.length > length ? text.substring(0, length) + '...' : text;
   };
@@ -84,8 +84,8 @@ const Card = ({ products }) => {
                 </button>
               </div>
               {addedProductId === product.id && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg z-50 text-center">
-                  {product.title} is Successfully added to cart! {/* Message showing after adding to cart */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg z-50 text-center opacity-80">
+                 successfully added to cart!
                 </div>
               )}
             </div>
@@ -109,7 +109,6 @@ Card.propTypes = {
       id: PropTypes.number.isRequired,
       thumbnail: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      brand: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       discountPercentage: PropTypes.number.isRequired,
       rating: PropTypes.number.isRequired,

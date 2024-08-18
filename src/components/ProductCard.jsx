@@ -97,7 +97,7 @@ const ProductCard = () => {
             </div>
           )}
 
-          {/* Aller Button */}
+          {/* Allert Button */}
           {product.dimensions && (
             <div className="mt-4">
               <h3 className="text-sm font-semibold text-gray-700">Dimensions</h3>
@@ -155,9 +155,9 @@ const ProductCard = () => {
 
       {/* Success Message */}
       {addedToCart && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg z-50 text-center">
-          Successfully added to cart!
-        </div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg z-50 text-center opacity-80">
+        successfully added to cart!
+         </div>
       )}
     </div>
   );

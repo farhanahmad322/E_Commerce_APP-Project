@@ -1,17 +1,19 @@
-
-
-
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from './CartContext'; 
+import { useCart } from './CartContext';
 
 const Navbar = () => {
-  const { cartCount } = useCart(); 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartCount } = useCart();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 bg-blue-900 px-4 py-3 shadow-lg z-50">
         <div className="container mx-auto flex items-center justify-between">
-
           {/* Logo part */}
           <div className="flex items-center">
             <img
@@ -20,15 +22,23 @@ const Navbar = () => {
               className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
             />
             <div className="ml-2 sm:ml-3 text-white">
-              <a href="/" className="font-bold text-lg sm:text-2xl tracking-wide">Apna Bazar</a>
-              <span className="text-xs sm:text-sm block tracking-wide">Your Shopping Hub</span>
+              <Link to="/" className="font-bold text-lg sm:text-2xl tracking-wide">
+                Apna Bazar
+              </Link>
+              <span className="text-xs sm:text-sm block tracking-wide">
+                Your Shopping Hub
+              </span>
             </div>
           </div>
 
           {/* Menu Links for Desktop */}
           <div className="hidden lg:flex items-center space-x-6 sm:space-x-8 text-white lg:ml-12">
-            <a href="/" className="hover:text-yellow-500">Orders</a>
-            <a href="/" className="hover:text-yellow-500">Favorite</a>
+            <Link to="/" className="hover:text-yellow-500">
+              Orders
+            </Link>
+            <Link to="/" className="hover:text-yellow-500">
+              Favorite
+            </Link>
             <Link to="/cart" className="hover:text-yellow-500 flex items-center relative">
               {/* Cart Icon */}
               <svg
@@ -79,18 +89,18 @@ const Navbar = () => {
           </div>
 
           {/* Login Button for Desktop */}
-          <a
-            href="#"
+          <Link
+            to="#"
             className="hidden lg:inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-yellow-500 shadow-md transition-colors duration-300 ease-in-out"
           >
             Login
-          </a>
+          </Link>
 
-          {/* Menu Button for Small screen*/}
+          {/* Menu Button for Small Screens */}
           <div className="lg:hidden flex items-center">
             <button
               className="text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              onClick={() => document.getElementById('mobile-menu').classList.toggle('hidden')}
+              onClick={toggleMenu}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,13 +120,19 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Samll screen Menu Dropdown */}
-        <div id="mobile-menu" className="lg:hidden hidden bg-blue-900 text-white px-6 py-3 space-y-4">
-          <a href="/" className="block hover:text-yellow-500">Orders</a>
-          <a href="/" className="block hover:text-yellow-500">Favorite</a>
-          <Link to="/cart" className="block hover:text-yellow-500  items-center relative">
-
-            {/* this prt is Cart Icon */}
+        {/* Small Screen Menu Dropdown */}
+        <div
+          id="mobile-menu"
+          className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-blue-900 text-white px-6 py-3 space-y-4`}
+        >
+          <Link to="/" className="block hover:text-yellow-500">
+            Orders
+          </Link>
+          <Link to="/" className="block hover:text-yellow-500">
+            Favorite
+          </Link>
+          <Link to="/cart" className="block hover:text-yellow-500 flex items-center relative">
+            {/* Cart Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -132,7 +148,7 @@ const Navbar = () => {
               />
             </svg>
             Cart
-            {/* numb of Cart Counting */}
+            {/* Cart Count */}
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-green-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">
                 {cartCount}
@@ -142,9 +158,8 @@ const Navbar = () => {
         </div>
       </nav>
 
-       <div className="mt-20">
-       
-      </div>
+      {/* Adjust the content margin/padding based on menu state */}
+      <div className={`mt-20 ${isMenuOpen ? 'mt-[200px]' : ''}`}></div>
     </>
   );
 };
