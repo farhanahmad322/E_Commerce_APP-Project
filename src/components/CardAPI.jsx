@@ -1,34 +1,46 @@
- import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes
 import Card from './Card';
 
-const CardAPI = () => {
-  const [products, setproducts] = useState([]); 
- 
+const CardAPI = ({ searchQuery }) => {
+  const [products, setProducts] = useState([]);
 
-  const getUsers = async () => {
+  const getProducts = async () => {
     try {
-     
       const response = await fetch("https://dummyjson.com/products");
       const data = await response.json();
       console.log(data);
-      
-      setproducts(data.products); 
+
+      // Ensure that data is in the expected format
+      if (data && data.products && Array.isArray(data.products)) {
+        setProducts(data.products);
+      } else {
+        console.error('Unexpected data format:', data);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
-    } 
+    }
   };
 
   useEffect(() => {
-    getUsers();
+    getProducts();
   }, []);
 
-  
+  // Filter products based on searchQuery
+  const filteredProducts = products.filter(product => 
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
-      <Card  products={products} />
+      <Card products={filteredProducts} />
     </>
   );
 }
+
+// Define PropTypes for the CardAPI component
+CardAPI.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+};
 
 export default CardAPI;

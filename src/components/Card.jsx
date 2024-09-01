@@ -15,7 +15,6 @@ const Card = ({ products }) => {
     }, 3000); // Message will disappear after 3 seconds
   };
 
- 
   const truncateTitle = (text, length) => {
     return text.length > length ? text.substring(0, length) + '...' : text;
   };
@@ -27,7 +26,7 @@ const Card = ({ products }) => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="relative bg-white border border-gray-300 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl max-w-sm mx-auto" // Adjusted max-w-sm for wider cards
+              className="relative bg-white border border-gray-300 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl max-w-sm mx-auto"
             >
               <Link
                 to={`/product/${product.id}`} // Linking to ProductCard with product ID
@@ -40,7 +39,7 @@ const Card = ({ products }) => {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    className="w-full h-40 object-cover rounded-t-lg" // Adjusted height
+                    className="w-full h-40 object-cover rounded-t-lg"
                   />
                 </div>
                 <div className="p-4">
@@ -55,7 +54,8 @@ const Card = ({ products }) => {
                       ₹{product.price}
                     </p>
                     <p className="text-sm text-gray-500 line-through">
-                      ₹{10000}
+                      {/* Update: Dynamically calculating original price based on discount */}
+                      ₹{(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
                     </p>
                     <p className="text-xs text-green-600">
                       {product.discountPercentage}% off
@@ -65,7 +65,8 @@ const Card = ({ products }) => {
                     <p className="text-sm text-yellow-500">
                       Rating: {product.rating} ★
                     </p>
-                    <p className="text-sm font-semibold text-red-600">
+                    {/* Update: Change text color based on stock level */}
+                    <p className={`text-sm font-semibold ${product.stock < 5 ? 'text-red-600' : 'text-green-600'}`}>
                       In Stock: {product.stock}
                     </p>
                   </div>
@@ -85,7 +86,7 @@ const Card = ({ products }) => {
               </div>
               {addedProductId === product.id && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg z-50 text-center opacity-80">
-                 successfully added to cart!
+                  Successfully added to cart!
                 </div>
               )}
             </div>
