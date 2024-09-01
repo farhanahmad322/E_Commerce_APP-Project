@@ -175,7 +175,7 @@ const Navbar = ({ searchQuery, setSearchQuery }) => {
         </Link>
 
         {/* Search Bar for Small Screens */}
-        <div className="block lg:hidden my-2 relative">
+        <div className="block lg:hidden my-2 relative text-black">
           <form onSubmit={handleSearchSubmit}>
             <input
               type="text"
